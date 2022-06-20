@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="AppSpotify.Views.TabbedPage1"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core" xmlns:converters="clr-namespace:AppSpotify.Converters"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            
+            BarTextColor="White">
+
+
+
+ 
+
+
+
+    <!--Pages can be added as references or inline-->
+    <ContentPage 
+      Title="Home" 
+      IconImageSource="casa.png" 
+      BackgroundImageSource="gradient.png"
+      NavigationPage.HasNavigationBar="False">
+        
+    </ContentPage>
+
+
+    <ContentPage Title="Add Songs"
+                 IconImageSource="mas.png"
+                 BackgroundImageSource="gradient.png"
+                 NavigationPage.HasNavigationBar="False">
+
+
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <converters:ImageConverter x:Key="ImageConverter"/>
+            </ResourceDictionary>
+        </ContentPage.Resources>
+
+
+        <ContentPage.ToolbarItems>
+            <ToolbarItem Text="Eliminar" Command="{Binding DeleteCommand}" />
+            <ToolbarItem Text="Guardar" Command="{Binding SaveCommand}"/>
+            <ToolbarItem Text="Mapa" Command="{Binding MapsCommand}"/>
+        </ContentPage.ToolbarItems>
+
+        <ContentPage.Content>
+            <ScrollView>
+                <StackLayout
+                Margin="20"
+                VerticalOptions="StartAndExpand">
+                    <Label
+                    Text="Nombre de la cancion"
+                    TextColor="White"/>
+                    <Entry
+                    Text="{Binding SongSelected.Name}"/>
+                    <Label
+                    Text="Nombre del/la cantante"
+                        TextColor="White"/>
+                    <Entry
+                    Text="{Binding SongSelected.Name}"/>
+                    <Label
+                    Text="Ubicación"
+                    HorizontalOptions="CenterAndExpand" 
+                        TextColor="White"/>
+                    <Label
+                    Text="Latitud"
+                        TextColor="White"/>
+                    <Entry
+                    Text="{Binding SongSelected.Latitude}" />
+                    <Label
+                    Text="Longitud"
+                        TextColor="White"/>
+                    <Entry
+                   
+                    Text="{Binding SongSelected.Longitude}" />
+                    <Label
+                    Text="Fotografia"
+                        TextColor="White"/>
+                    <Image 
+                        Source="{Binding Picture, Converter={StaticResource ImageConverter}}"
+                        WidthRequest="100"/>
+                    <Button
+                    Text="Tomar Fotografia"
+                        TextColor="White"
+                    Command="{Binding TakePictureCommand}"/>
+                    <Button
+                    Text="Seleccionar Fotografia"
+                        TextColor="White"
+                    Command="{Binding SelectPictureCommand}"/>
+                </StackLayout>
+            </ScrollView>
+        </ContentPage.Content>
+    </ContentPage>
+
+
+
+    <ContentPage 
+        Title="Your playlist"
+        IconImageSource="libros.png">
+
+
+        <ContentPage.ToolbarItems>
+            <ToolbarItem
+            Text="Playlist"
+            Command="{Binding NewCommand}">
+                <ToolbarItem.IconImageSource>
+                    <OnPlatform
+                    x:TypeArguments="ImageSource">
+                        <On
+                        Platform="Android, UWP"
+                        Value="plus.png">
+                        </On>
+                    </OnPlatform>
+                </ToolbarItem.IconImageSource>
+            </ToolbarItem>
+        </ContentPage.ToolbarItems>
+
+
+        <ContentPage.Content>
+            <ListView
+            Margin="0, 0, 0, 0"
+            ItemsSource="{Binding GasStations}"
+            SelectedItem="{Binding GasStationSelected}">
+                <ListView.Header>
+                    <StackLayout Orientation="Horizontal">
+                        <Image
+                        VerticalOptions="Fill"
+                        HorizontalOptions="FillAndExpand"
+                        HeightRequest="150"
+                        
+                        Aspect="AspectFill"
+                        Source="gas03.jpg"/>
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout
+                            Margin="20, 0, 0, 0"
+                            Orientation="Horizontal"
+                            HorizontalOptions="FillAndExpand">
+                                <Image
+                                Margin="5, 5, 5, 5"
+                                Grid.RowSpan="2"
+                                HeightRequest="100"
+                                Source="{Binding ImageBase64, Converter={StaticResource ImageConverter}}" />
+                                <Label
+                                Text="{Binding Name}"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="StartAndExpand" />
+                                <Label
+                                Text="{Binding Company}"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="StartAndExpand" />
+
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ContentPage.Content>
+
+    </ContentPage>
+</TabbedPage>

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:AppSpotify.Converters"
+             x:Class="AppSpotify.Views.ListSongsPage"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             android:TabbedPage.ToolbarPlacement="Bottom"
+             Title="Spotify">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="ImageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="+"
+            Command="{Binding NewCommand}">
+            <ToolbarItem.IconImageSource>
+                <OnPlatform
+                    x:TypeArguments="ImageSource">
+                    <On
+                        Platform="Android, UWP"
+                        Value="plus.png">
+                    </On>
+                </OnPlatform>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+
+    <ContentPage.Content>
+        <ListView
+            Margin="0, 0, 0, 0"
+            ItemsSource="{Binding GasStations}"
+            SelectedItem="{Binding GasStationSelected}">
+            <ListView.Header>
+                <StackLayout Orientation="Horizontal">
+                    <Image
+                        VerticalOptions="Fill"
+                        HorizontalOptions="FillAndExpand"
+                        HeightRequest="150"
+                        
+                        Aspect="AspectFill"
+                        Source="gas03.jpg"/>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout
+                            Margin="20, 0, 0, 0"
+                            Orientation="Horizontal"
+                            HorizontalOptions="FillAndExpand">
+                            <Image
+                                Margin="5, 5, 5, 5"
+                                Grid.RowSpan="2"
+                                HeightRequest="100"
+                                Source="{Binding ImageBase64, Converter={StaticResource ImageConverter}}" />
+                            <Label
+                                Text="{Binding Name}"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="StartAndExpand" />
+                            <Label
+                                Text="{Binding Company}"
+                                VerticalTextAlignment="Center"
+                                HorizontalOptions="StartAndExpand" />
+
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>
